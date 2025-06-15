@@ -19,11 +19,11 @@ while true; do
 done
 PUBLIC_IP=$(curl -s ipinfo.io/ip)
 clear
-read -p "Введите внешний IP этой VPS (или нажмите Enter, чтобы использовать ${PUBLIC_IP}): " SERVER_IP
+read -p "External IP of this server (press Enter to use ${PUBLIC_IP}): " SERVER_IP
 SERVER_IP=${SERVER_IP:-${PUBLIC_IP}}
-read -p "Введите адрес сервера для Reality (Или нажмите Enter, для дефолтного значения www.yahoo.com): " SNI
+read -p "Reality server address (press Enter for default: www.yahoo.com): " SNI
 SNI=${SNI:-'www.yahoo.com'}
-read -p "Введите порт для Shadowsocks (Или нажмите Enter, для дефолтного значения 8888): " SS_PORT
+read -p "Shadowsocks port (press Enter for default: 8888): " SS_PORT
 SS_PORT=${SS_PORT:-8888}
 
 # prepare config file
@@ -38,12 +38,12 @@ sed -i "s|SNI|${SNI}|g" /usr/local/etc/xray/config.json
 # apply settings
 systemctl restart xray
 sleep 1
-echo "Статус Xray:"
+echo "Xray status:"
 systemctl status xray | grep Active
 
 # Get connection strings
 echo ""
-echo "Данные для подключения сохранены в connect.txt:"
+echo "Connection details saved to connect.txt:"
 echo ""
 echo "VLESS:" > connect.txt
 echo "vless://${UUID}@${SERVER_IP}:443/?encryption=none&type=tcp&sni=${SNI}&fp=chrome&security=reality&alpn=h2&flow=xtls-rprx-vision&pbk=${PUBLIC_KEY}&packetEncoding=xudp" >> connect.txt
