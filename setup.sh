@@ -13,7 +13,7 @@ PRIVATE_KEY=$(grep 'Private' VLESS.TXT | awk '{print $3}')
 PUBLIC_KEY=$(grep 'Public' VLESS.TXT | awk '{print $3}')
 while true; do
   SS_PASS=$(openssl rand -base64 16)
-  if [[ "$SS_PASS" != *"/"* && "$SS_PASS" != *"+"*" ]]; then
+  if [[ "$SS_PASS" != *"/"* && "$SS_PASS" != *"+"* ]]; then
     break
   fi
 done
