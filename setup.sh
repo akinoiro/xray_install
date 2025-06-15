@@ -39,15 +39,17 @@ sed -i "s|SNI|${SNI}|g" /usr/local/etc/xray/config.json
 # apply settings
 systemctl restart xray
 sleep 1
-clear
 echo "Статус Xray:"
 systemctl status xray | grep Active
 
 # Get connection strings
 echo ""
 echo "Данные для подключения сохранены в connect.txt:"
+echo ""
 echo "VLESS:" > connect.txt
 echo "vless://${UUID}@${SERVER_IP}:443/?encryption=none&type=tcp&sni=${SNI}&fp=chrome&security=reality&alpn=h2&flow=xtls-rprx-vision&pbk=${PUBLIC_KEY}&packetEncoding=xudp" >> connect.txt
+echo "" >> connect.txt
 echo "Shadowsocks-2022:" >> connect.txt
 echo "ss://2022-blake3-aes-128-gcm:${SS_PASS}@${SERVER_IP}:${SS_PORT}" >> connect.txt
 cat connect.txt
+echo ""
