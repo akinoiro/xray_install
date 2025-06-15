@@ -4,14 +4,14 @@
   },
   "inbounds": [
     {
-      "listen": "{{SERVER_IP}}",
+      "listen": "SERVER_IP",
       "port": 443,
       "protocol": "vless",
       "tag": "reality-in",
       "settings": {
         "clients": [
           {
-            "id": "{{UUID}}",
+            "id": "UUID",
             "flow": "xtls-rprx-vision"
           }
         ],
@@ -22,12 +22,12 @@
         "security": "reality",
         "realitySettings": {
           "show": false,
-          "dest": "{{SNI}}:443",
+          "dest": "SNI:443",
           "xver": 0,
           "serverNames": [
-            "{{SNI}}"
+            "SNI"
           ],
-          "privateKey": "{{PRIVATE_KEY}}",
+          "privateKey": "PRIVATE_KEY",
           "minClientVer": "",
           "maxClientVer": "",
           "maxTimeDiff": 0,
@@ -46,12 +46,12 @@
       }
     },
     {
-      "port": {{SS_PORT}},
+      "port": SS_PORT,
       "tag": "ss-in",
       "protocol": "shadowsocks",
       "settings": {
         "method": "2022-blake3-aes-128-gcm",
-        "password": "{{SS_PASS}}",
+        "password": "SS_PASS",
         "network": "tcp,udp"
       }
     }
