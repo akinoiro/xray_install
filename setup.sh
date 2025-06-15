@@ -7,25 +7,24 @@ bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release
 systemctl enable xray
 
 # set variables
-xray x25519 > VLESS.TXT
 UUID=$(xray uuid)
-PRIVATE_KEY=$(grep 'Private' VLESS.TXT | awk '{print $3}')
-PUBLIC_KEY=$(grep 'Public' VLESS.TXT | awk '{print $3}')
+X25519_OUTPUT=$(xray x25519)
+PRIVATE_KEY=$(echo "$X25519_OUTPUT" | grep 'Private' | awk '{print $3}')
+PUBLIC_KEY=$(echo "$X25519_OUTPUT" | grep 'Public' | awk '{print $3}')
 while true; do
   SS_PASS=$(openssl rand -base64 16)
   if [[ "$SS_PASS" != *"/"* && "$SS_PASS" != *"+"* ]]; then
     break
   fi
 done
-SERVER_IP=$(curl -s ipinfo.io/ip)
+PUBLIC_IP=$(curl -s ipinfo.io/ip)
 clear
-read -p "Введите внешний IP этой VPS (или нажмите Enter, чтобы использовать ${SERVER_IP}): " SERVER_IP
-SERVER_IP=${SERVER_IP:-$(curl -s ipinfo.io/ip)}
+read -p "Введите внешний IP этой VPS (или нажмите Enter, чтобы использовать ${PUBLIC_IP}): " SERVER_IP
+SERVER_IP=${SERVER_IP:-${PUBLIC_IP}}
 read -p "Введите адрес сервера для Reality (Или нажмите Enter, для дефолтного значения www.yahoo.com): " SNI
 SNI=${SNI:-'www.yahoo.com'}
 read -p "Введите порт для Shadowsocks (Или нажмите Enter, для дефолтного значения 8888): " SS_PORT
 SS_PORT=${SS_PORT:-8888}
-rm VLESS.TXT
 
 # prepare config file
 cp ./config.json.template /usr/local/etc/xray/config.json
