@@ -47,7 +47,7 @@ systemctl status xray | grep Active
 echo ""
 echo "Данные для подключения сохранены в connect.txt:"
 echo "VLESS:" > connect.txt
-echo "vless://${UUID}@${SERVER_IP}:443/?encryption=none&type=tcp&sni=${SNI}&fp=chrome&security=reality&alpn=h2&flow=xtls-rprx-vision&pbk=${PRIVATE_KEY}&packetEncoding=xudp" >> connect.txt
+echo "vless://${UUID}@${SERVER_IP}:443/?encryption=none&type=tcp&sni=${SNI}&fp=chrome&security=reality&alpn=h2&flow=xtls-rprx-vision&pbk=${PUBLIC_KEY}&packetEncoding=xudp" >> connect.txt
 echo "Shadowsocks-2022:" >> connect.txt
 echo "ss://2022-blake3-aes-128-gcm:${SS_PASS}@${SERVER_IP}:${SS_PORT}" >> connect.txt
 cat connect.txt
