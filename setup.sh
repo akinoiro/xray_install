@@ -92,6 +92,7 @@ fi
 
 # Get connection strings
 echo
+echo "========================================"
 echo "Connection details saved to connect.txt:"
 echo
 echo "VLESS:" > connect.txt
@@ -101,3 +102,6 @@ echo "Shadowsocks-2022:" >> connect.txt
 echo "ss://2022-blake3-aes-128-gcm:${SS_PASS}@${SERVER_IP}:${SS_PORT}" >> connect.txt
 cat connect.txt
 echo
+echo "========================================"
+echo "Use Hiddify vpn-client - https://github.com/hiddify/hiddify-app"
+echo "If it still doesn't work, run /setup.sh again and specify a different domain instead of ${SNI}"
