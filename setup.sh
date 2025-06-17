@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -e
 
 # install soft
 apt update && apt install -y curl openssl
@@ -47,11 +46,16 @@ echo
 while true; do
   read -p "Reality server address (press Enter for default: www.yahoo.com): " SNI
   SNI=${SNI:-'www.yahoo.com'}
-  if ! [[ $SNI =~ .*[0-9\W]$ ]]; then
-    break
-  else
+  if [[ $SNI =~ .*[0-9]$ ]]; then
     echo "Error: please enter a valid domain address."
+    continue
   fi
+  OPENSSL_OUTPUT=$(timeout 3 openssl s_client -connect "$SNI":443 -brief 2>&1)
+  if ! echo "$OPENSSL_OUTPUT" | grep -q TLSv1.3; then
+    echo "Error: server must support TLSv1.3. Try another"
+    continue
+  fi
+  break
 done
 echo
 while true; do
