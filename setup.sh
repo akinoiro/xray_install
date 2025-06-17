@@ -36,7 +36,7 @@ while true; do
     echo "Error: please enter a valid port."
     continue
   fi
-  if ss -tln | grep -qw ":$VLESS_PORT "; then
+  if ss -tln | grep -q ":$VLESS_PORT "; then
     echo "Error: port is busy. Try another."
     continue
   fi
@@ -47,7 +47,7 @@ while true; do
   read -p "Reality server address (press Enter for default: www.yahoo.com): " SNI
   SNI=${SNI:-'www.yahoo.com'}
   OPENSSL_OUTPUT=$(timeout 3 openssl s_client -connect "$SNI":443 -brief 2>&1)
-  if ! echo "$OPENSSL_OUTPUT" | grep -q TLSv1.3; then
+  if ! echo "$OPENSSL_OUTPUT" | grep -q "TLSv1.3"; then
     echo "Error: server must support TLSv1.3. Try another."
     continue
   fi
@@ -61,7 +61,7 @@ while true; do
     echo "Error: please enter a valid port."
     continue
   fi
-  if ss -tln | grep -qw ":$SS_PORT "; then
+  if ss -tln | grep -q ":$SS_PORT "; then
     echo "Error: port is busy. Try another."
     continue
   fi
