@@ -5,7 +5,7 @@
   "inbounds": [
     {
       "listen": "SERVER_IP",
-      "port": 443,
+      "port": VLESS_PORT,
       "protocol": "vless",
       "tag": "reality-in",
       "settings": {
