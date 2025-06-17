@@ -22,10 +22,10 @@ clear
 while true; do
   read -p "External IP of this server (press Enter to use ${PUBLIC_IP}): " SERVER_IP
   SERVER_IP=${SERVER_IP:-${PUBLIC_IP}}
-  if [[ $SERVER_IP =~ ^[0-9.]+$ ]]; then
+  if ip a | grep -q "$SERVER_IP"; then
     break
   else
-    echo "Error: please enter a valid IP address."
+    echo "Error: this IP address is not found on the network interfaces."
   fi
 done
 echo
