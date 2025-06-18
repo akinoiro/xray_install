@@ -36,6 +36,10 @@ while true; do
     echo "Error: please enter a valid port."
     continue
   fi
+  if (( VLESS_PORT < 1 || VLESS_PORT > 49151 )); then
+    echo "Error: the port must be within the valid range."
+    continue
+  fi
   if ss -tln | grep -q ":$VLESS_PORT "; then
     echo "Error: port is busy. Try another."
     continue
@@ -59,6 +63,10 @@ while true; do
   SS_PORT=${SS_PORT:-8888}
   if ! [[ $SS_PORT =~ ^[0-9]+$ ]]; then
     echo "Error: please enter a valid port."
+    continue
+  fi
+  if (( SS_PORT < 1 || SS_PORT > 49151 )); then
+    echo "Error: the port must be within the valid range."
     continue
   fi
   if ss -tln | grep -q ":$SS_PORT "; then
